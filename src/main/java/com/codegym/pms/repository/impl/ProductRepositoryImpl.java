@@ -23,6 +23,6 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
     @Override
     public List<Product> findAll() {
-        return (ArrayList<Product>)products.values();
+        return  new ArrayList<>(products.values());
     }
 }
