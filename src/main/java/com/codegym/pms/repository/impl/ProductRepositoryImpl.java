@@ -34,6 +34,11 @@ public class ProductRepositoryImpl implements ProductRepository {
         products.put(key,product);
     }
 
+    @Override
+    public Product findProductById(int id) {
+        return products.get(id);
+    }
+
     private int getRandomId(){
         Random rd=new Random();
         return rd.nextInt(10000);
@@ -41,5 +46,10 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     private Category getDefaultCategory(){
         return categories.get(0);
+    }
+
+    @Override
+    public void updateProduct(int key, Product product) {
+        products.put(key,product);
     }
 }

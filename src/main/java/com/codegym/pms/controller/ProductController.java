@@ -4,10 +4,7 @@ import com.codegym.pms.model.Product;
 import com.codegym.pms.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -38,10 +35,26 @@ public class ProductController {
     }
 
     @PostMapping("/save")
-    public String createNewProduct(@ModelAttribute Product product, RedirectAttributes redirectAttributes){
+    public String createNewProduct(@ModelAttribute Product product, RedirectAttributes redirectAttributes) {
         productRepository.addProduct(product);
-//        redirectAttributes.addFlashAttribute("products",products);
+        redirectAttributes.addFlashAttribute("method", "created");
+        redirectAttributes.addFlashAttribute("productName", product.getName());
         return "redirect:/product";
 
+    }
+
+    @GetMapping("/detail")
+    public ModelAndView showEditForm(@RequestParam int productId){
+        ModelAndView modelAndView = new ModelAndView("edit");
+        modelAndView.addObject("product",productRepository.findProductById(productId));
+        return modelAndView;
+    }
+
+    @PostMapping("/update")
+    public String updateProduct(@ModelAttribute Product product,RedirectAttributes redirectAttributes){
+        productRepository.updateProduct(product.getId(),product);
+        redirectAttributes.addFlashAttribute("method", "edited");
+        redirectAttributes.addFlashAttribute("productName", product.getName());
+        return "redirect:/product";
     }
 }

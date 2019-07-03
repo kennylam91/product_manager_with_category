@@ -21,9 +21,13 @@
         <td th:text="${pro.getPrice()}"></td>
         <td th:text="${pro.getStock()}"></td>
         <td th:text="${pro.getCategory().getName()}"></td>
-        <td><a href="">Edit</a></td>
+        <td><a th:href="@{/product/detail(productId=${pro.id})}">Edit</a></td>
         <td><a href="">Delete</a></td>
     </tr>
 </table>
+<br>
+<div th:if="${productName}">
+    <span th:text="'product '+${productName} +' was '+ ${method}"></span>
+</div>
 </body>
 </html>
