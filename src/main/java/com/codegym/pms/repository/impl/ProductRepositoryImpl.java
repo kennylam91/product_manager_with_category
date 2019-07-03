@@ -4,16 +4,14 @@ import com.codegym.pms.model.Category;
 import com.codegym.pms.model.Product;
 import com.codegym.pms.repository.ProductRepository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ProductRepositoryImpl implements ProductRepository {
     public static Map<Integer,Product> products;
     public static Map<Integer,Category> categories;
     static{
         categories=new HashMap<>();
+        categories.put(0,new Category(0,"default"));
         categories.put(1,new Category(1,"smartphone"));
         categories.put(2, new Category(2,"laptop"));
         products=new HashMap<>();
@@ -26,5 +24,22 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public List<Product> findAll() {
         return  new ArrayList<>(products.values());
+    }
+
+    @Override
+    public void addProduct(Product product) {
+        int key= getRandomId();
+        product.setId(key);
+        product.setCategory(getDefaultCategory());
+        products.put(key,product);
+    }
+
+    private int getRandomId(){
+        Random rd=new Random();
+        return rd.nextInt(10000);
+    }
+
+    private Category getDefaultCategory(){
+        return categories.get(0);
     }
 }
