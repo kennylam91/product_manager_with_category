@@ -26,6 +26,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
         this.applicationContext=applicationContext;
     }
 
+
     //Thymeleaf Configuration
     @Bean
     public SpringResourceTemplateResolver templateResolver(){
