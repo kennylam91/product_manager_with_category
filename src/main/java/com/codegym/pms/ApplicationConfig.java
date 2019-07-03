@@ -1,5 +1,7 @@
 package com.codegym.pms;
 
+import com.codegym.pms.repository.ProductRepository;
+import com.codegym.pms.repository.impl.ProductRepositoryImpl;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -26,6 +28,11 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
         this.applicationContext=applicationContext;
     }
 
+
+    @Bean
+    public ProductRepository productRepository(){
+        return new ProductRepositoryImpl();
+    }
 
     //Thymeleaf Configuration
     @Bean
