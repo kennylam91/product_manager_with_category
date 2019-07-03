@@ -6,7 +6,23 @@
 </head>
 <body>
 <h2>Product List</h2>
-<div th:text="${products}"></div>
-
+<table border="1">
+    <tr>
+        <td>Name</td>
+        <td>Price</td>
+        <td>Stock</td>
+        <td>Category</td>
+        <td>Edit</td>
+        <td>Delete</td>
+    </tr>
+    <tr th:each="pro:${products}">
+        <td th:text="${pro.getName()}"></td>
+        <td th:text="${pro.getPrice()}"></td>
+        <td th:text="${pro.getStock()}"></td>
+        <td th:text="${pro.getCategory().getName()}"></td>
+        <td><a href="">Edit</a></td>
+        <td><a href="">Delete</a></td>
+    </tr>
+</table>
 </body>
 </html>
