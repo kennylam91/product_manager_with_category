@@ -12,4 +12,6 @@ public interface ProductRepository {
     Product findProductById(int id);
 
     void updateProduct(int key, Product product);
+
+    void deleteProductById(int id);
 }

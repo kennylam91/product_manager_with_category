@@ -22,12 +22,19 @@
         <td th:text="${pro.getStock()}"></td>
         <td th:text="${pro.getCategory().getName()}"></td>
         <td><a th:href="@{/product/detail(productId=${pro.id})}">Edit</a></td>
-        <td><a href="">Delete</a></td>
+        <td><a th:href="@{/product/delete(productId=${pro.id},productName=${pro.name})}">Delete</a></td>
     </tr>
 </table>
 <br>
-<div th:if="${productName}">
+<div th:if="${success}">
     <span th:text="'product '+${productName} +' was '+ ${method}"></span>
+</div>
+<div th:if="${delete}">
+    <span th:text="'Delete product '+ ${productName}+' ?' ">
+    </span>
+    <form th:action="@{/product/delete(productId=${productId})}" method="post">
+        <input type="submit" value="Delete">
+    </form>
 </div>
 </body>
 </html>
