@@ -9,8 +9,9 @@ import java.util.*;
 
 public class ProductServiceImpl implements ProductService {
     public static Map<Integer, Product> products;
-    public static Map<Integer,Category> categories= CategoryServiceImpl.categories;
+    public static Map<Integer, Category> categories = CategoryServiceImpl.categories;
     private CategoryService categoryService = new CategoryServiceImpl();
+
     static {
 
         products = new HashMap<>();
@@ -26,11 +27,13 @@ public class ProductServiceImpl implements ProductService {
         return new ArrayList<>(products.values());
     }
 
+
     @Override
     public void addProduct(Product product) {
         int key = getRandomId();
         product.setId(key);
-        product.setCategory(categoryService.findCategoryById(product.getCategory().getId()));
+        int categoryId= product.getCategory().getId();
+        product.setCategory(categoryService.findCategoryById(categoryId));
         products.put(key, product);
     }
 
@@ -40,8 +43,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private int getRandomId() {
-        Random rd = new Random();
-        return rd.nextInt(10000);
+        int id;
+        do {
+            Random rd = new Random();
+            id = rd.nextInt(10000);
+        }
+        while(isProductExist(id));
+        return id;
     }
 
     private Category getDefaultCategory() {
@@ -57,6 +65,10 @@ public class ProductServiceImpl implements ProductService {
     public void deleteProductById(int id) {
         products.remove(id);
 
+    }
+
+    private boolean isProductExist(int id){
+        return categories.containsKey(id);
     }
 
 
