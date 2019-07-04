@@ -31,12 +31,23 @@
 <div th:if="${success}">
     <span th:text="'product '+${productName} +' was '+ ${method}"></span>
 </div>
-<div th:if="${delete}">
+<div th:if="${delete}" id="delete_div">
     <span th:text="'Delete product '+ ${productName}+' ?' ">
     </span>
+    <div>
     <form th:action="@{/product/delete(productId=${productId})}" method="post">
-        <input type="submit" value="Delete">
+        <input type="submit" value="Delete" id="">
     </form>
+    <input type="submit" value="Cancel" id="cancel">
+    </div>
+
 </div>
 </body>
+<script>
+    var Cancel_Button = document.getElementById("cancel");
+    var Delete_Area= document.getElementById("delete_div");
+    Cancel_Button.onclick=function(){
+        Delete_Area.style.display="none";
+    }
+</script>
 </html>
