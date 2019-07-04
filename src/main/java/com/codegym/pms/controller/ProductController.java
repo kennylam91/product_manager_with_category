@@ -49,6 +49,7 @@ public class ProductController {
     public ModelAndView showEditForm(@RequestParam int productId) {
         ModelAndView modelAndView = new ModelAndView("edit");
         modelAndView.addObject("product", productService.findProductById(productId));
+        modelAndView.addObject("categories",categoryService.findAllCategory());
         return modelAndView;
     }
 

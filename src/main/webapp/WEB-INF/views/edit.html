@@ -22,8 +22,16 @@
     </div>
     <div>
         <label>Category</label>
-        <input type="text" th:field="*{category.name}" th:value="${product.getCategory()}">
-        <input type="hidden" th:field="*{category.id}"}>
+        <select th:field="*{category.id}" th:value="${product.getCategory()}">
+            <option th:each="cate: ${categories}"
+                    th:value="${cate.getId()}"
+                    th:text="${cate.name}">
+
+            </option>
+        </select>
+
+<!--        <input type="text" th:field="*{category.name}" th:value="${product.getCategory()}">-->
+<!--        <input type="hidden" th:field="*{category.id}"}>-->
     </div>
     <input type="submit" value="Save">
 </form>
