@@ -1,20 +1,18 @@
-package com.codegym.pms.repository.impl;
+package com.codegym.pms.service.impl;
 
 import com.codegym.pms.model.Category;
 import com.codegym.pms.model.Product;
-import com.codegym.pms.repository.ProductRepository;
+import com.codegym.pms.service.CategoryService;
+import com.codegym.pms.service.ProductService;
 
 import java.util.*;
 
-public class ProductRepositoryImpl implements ProductRepository {
+public class ProductServiceImpl implements ProductService {
     public static Map<Integer, Product> products;
-    public static Map<Integer, Category> categories;
-
+    public static Map<Integer,Category> categories= CategoryServiceImpl.categories;
+    private CategoryService categoryService = new CategoryServiceImpl();
     static {
-        categories = new HashMap<>();
-        categories.put(0, new Category(0, "default"));
-        categories.put(1, new Category(1, "smartphone"));
-        categories.put(2, new Category(2, "laptop"));
+
         products = new HashMap<>();
         products.put(1, new Product(1, "Iphone XS", 15000, 15, categories.get(1)));
         products.put(2, new Product(2, "Thinkpad W541", 22000, 7, categories.get(2)));
@@ -24,7 +22,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public List<Product> findAll() {
+    public List<Product> findAllProduct() {
         return new ArrayList<>(products.values());
     }
 
@@ -32,7 +30,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     public void addProduct(Product product) {
         int key = getRandomId();
         product.setId(key);
-        product.setCategory(getDefaultCategory());
+        product.setCategory(categoryService.findCategoryById(product.getCategory().getId()));
         products.put(key, product);
     }
 
@@ -60,4 +58,6 @@ public class ProductRepositoryImpl implements ProductRepository {
         products.remove(id);
 
     }
+
+
 }

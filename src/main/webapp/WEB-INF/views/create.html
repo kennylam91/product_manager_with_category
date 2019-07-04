@@ -8,7 +8,7 @@
 <h3>Create new product:</h3>
 <form th:action="@{/product/save}" th:object="${product}" method="POST">
     <input type="hidden" th:field="*{id}">
-    <input type="hidden" th:field="*{category.id}">
+    <input type="hidden" th:field="*{category.name}">
     <div>
         <label>Name</label>
         <input type="text" th:field="*{name}">
@@ -23,10 +23,14 @@
     </div>
     <div>
         <label>Category</label>
-        <input type="text" th:field="*{category.name}">
-
+        <select th:field="*{category.id}">
+        <option th:each="category:${categories}"
+                th:value="${category.getId()}"
+                th:text="${category.getName()}">
+        </option>
+        </select>
     </div>
     <input type="submit" value="Create">
-</form>
+</form>K
 </body>
 </html>

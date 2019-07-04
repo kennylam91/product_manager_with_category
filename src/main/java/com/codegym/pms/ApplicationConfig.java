@@ -1,7 +1,9 @@
 package com.codegym.pms;
 
-import com.codegym.pms.repository.ProductRepository;
-import com.codegym.pms.repository.impl.ProductRepositoryImpl;
+import com.codegym.pms.service.CategoryService;
+import com.codegym.pms.service.ProductService;
+import com.codegym.pms.service.impl.CategoryServiceImpl;
+import com.codegym.pms.service.impl.ProductServiceImpl;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -30,10 +32,14 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
 
 
     @Bean
-    public ProductRepository productRepository(){
-        return new ProductRepositoryImpl();
+    public ProductService productService(){
+        return new ProductServiceImpl();
     }
 
+    @Bean
+    public CategoryService categoryService(){
+        return new CategoryServiceImpl();
+    }
     //Thymeleaf Configuration
     @Bean
     public SpringResourceTemplateResolver templateResolver(){
